@@ -17,6 +17,9 @@ public class TowerShooter : MonoBehaviour
 
     private float fireCooldown;
     private Transform currentTarget;
+    public Transform firePoint;
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 20f;
 
     private void Update()
     {
@@ -78,18 +81,16 @@ public class TowerShooter : MonoBehaviour
 
     private void Fire()
     {
-        // Guaranteed hit: apply damage directly to the target
-        var hp = currentTarget.GetComponent<EnemyHealth>();
-        if (hp != null)
-        {
-            hp.TakeDamage(damage);
-        }
+        if (projectilePrefab == null || currentTarget == null) return;
 
-        // Optional tracer line for feedback
-        if (tracer != null)
+        Vector3 spawnPos = firePoint != null ? firePoint.position : transform.position + Vector3.up * 1f;
+        GameObject projObj = Instantiate(projectilePrefab, spawnPos, Quaternion.identity);
+
+        var proj = projObj.GetComponent<ProjectileHoming>();
+        if (proj != null)
         {
-            StopAllCoroutines();
-            StartCoroutine(ShowTracer(transform.position, currentTarget.position));
+            proj.speed = projectileSpeed;
+            proj.Init(currentTarget, damage);
         }
     }
 

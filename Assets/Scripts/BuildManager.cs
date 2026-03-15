@@ -66,9 +66,18 @@ public class BuildManager : MonoBehaviour
     private void EnsureGhost()
     {
         if (ghost != null) return;
+
         ghost = Instantiate(towerPrefab);
 
-        // Make ghost not interfere with collision checks (optional but nice):
+        // Disable gameplay scripts on the ghost so it doesn't shoot
+        foreach (var shooter in ghost.GetComponentsInChildren<TowerShooter>(true))
+            shooter.enabled = false;
+
+        // Optional: also disable colliders so it won't interfere with anything
+        foreach (var col in ghost.GetComponentsInChildren<Collider>(true))
+            col.enabled = false;
+
+        // Keep ghost out of raycast layers (as you already did)
         ghost.layer = LayerMask.NameToLayer("Ignore Raycast");
         foreach (Transform t in ghost.GetComponentsInChildren<Transform>())
             t.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
