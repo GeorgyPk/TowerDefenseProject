@@ -53,6 +53,9 @@ public class BuildManager : MonoBehaviour
         ghost.SetActive(true);
         ghost.transform.position = pos;
 
+        var indicator = ghost.GetComponentInChildren<RangeIndicator>();
+        if (indicator != null) indicator.Draw();
+
         // Check that player has enough money and the placement is right
         int cost = towerPrefab.GetComponent<TowerCost>()?.cost ?? 0;
         bool canAfford = GameManager.Instance == null || GameManager.Instance.Money >= cost;
@@ -85,6 +88,19 @@ public class BuildManager : MonoBehaviour
         ghost.layer = LayerMask.NameToLayer("Ignore Raycast");
         foreach (Transform t in ghost.GetComponentsInChildren<Transform>())
             t.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+
+        var shooterOnPrefab = towerPrefab.GetComponentInChildren<TowerShooter>(true);
+        float range = shooterOnPrefab != null ? shooterOnPrefab.range : 8f;
+
+        var lr = ghost.GetComponentInChildren<LineRenderer>(true);
+        if (lr != null) lr.enabled = true;
+
+        var indicator = ghost.GetComponentInChildren<RangeIndicator>(true);
+        if (indicator != null)
+        {
+            indicator.yOffset = 0.1f;     // ensure visible above ground
+            indicator.SetRadius(range);   // draws once too
+        }
     }
 
     private void TintGhost(bool valid)
