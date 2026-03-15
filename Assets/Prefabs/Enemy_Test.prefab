@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 1079056095853610806}
   - component: {fileID: 6798674106344869945}
   - component: {fileID: 5589250323933710672}
-  m_Layer: 0
+  - component: {fileID: 2639849723514171616}
+  m_Layer: 7
   m_Name: Enemy_Test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,8 +156,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61788deb9ba639e479872106d85235d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMover
-  speed: 50
+  speed: 20
   rotateSpeed: 720
   waypointReachDistance: 0.2
   path: {fileID: 0}
   startWaypointIndex: 0
+--- !u!114 &2639849723514171616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4652245200650963815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 038ab6c733648334ead9f3debfe7f2d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  maxHp: 20
+  currentHp: 0
