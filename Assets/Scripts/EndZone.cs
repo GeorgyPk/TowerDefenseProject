@@ -9,8 +9,9 @@ public class EndZone : MonoBehaviour
         var mover = other.GetComponent<EnemyMover>();
         if (mover == null) return;
 
-        // TODO later: GameManager.Instance.LoseLives(damagePerEnemy);
+        GameManager.Instance.LoseLives(damagePerEnemy);
         Debug.Log($"Enemy reached the base! -{damagePerEnemy} lives");
+        Destroy(other.gameObject);
 
         Destroy(other.gameObject);
     }

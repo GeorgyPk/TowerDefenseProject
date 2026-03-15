@@ -4,6 +4,7 @@ public class EnemyHealth : MonoBehaviour
 {
     public float maxHp = 20f;
     public float currentHp;
+    public int reward = 5;
 
     private void Awake()
     {
@@ -21,6 +22,9 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
+        if (GameManager.Instance != null)
+            GameManager.Instance.AddMoney(reward);
+
         Destroy(gameObject);
     }
 }

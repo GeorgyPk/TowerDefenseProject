@@ -53,13 +53,17 @@ public class BuildManager : MonoBehaviour
         ghost.SetActive(true);
         ghost.transform.position = pos;
 
-        bool valid = !Physics.CheckSphere(pos, placementRadius, blockedMask);
+        // Check that player has enough money and the placement is right
+        int cost = towerPrefab.GetComponent<TowerCost>()?.cost ?? 0;
+        bool canAfford = GameManager.Instance == null || GameManager.Instance.Money >= cost;
+        bool valid = canAfford && !Physics.CheckSphere(pos, placementRadius, blockedMask);
 
         TintGhost(valid);
 
         if (valid && Mouse.current.leftButton.wasPressedThisFrame)
         {
-            Instantiate(towerPrefab, pos, Quaternion.identity);
+            if (GameManager.Instance == null || GameManager.Instance.TrySpendMoney(cost))
+                Instantiate(towerPrefab, pos, Quaternion.identity);
         }
     }
 
