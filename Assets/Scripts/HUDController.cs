@@ -37,6 +37,13 @@ public class HUDController : MonoBehaviour
     [Header("Selection")]
     public TowerSelectionManager selectionManager;
 
+    [Header("Build button highlight")]
+    public Color normalBuildButtonColor = Color.white;
+    public Color selectedBuildButtonColor = new Color(0.75f, 1f, 0.75f, 1f);
+
+    [Header("Managers")]
+    public BuildManager buildManager;
+
     private void Start()
     {
         if (autoWavesToggle != null && GameManager.Instance != null)
@@ -67,6 +74,7 @@ public class HUDController : MonoBehaviour
         RefreshBuildButton(buildFrostButton, buildFrostButtonText, frostDefinition, "Build Frost");
 
         RefreshSelectionButtons();
+        RefreshBuildButtonHighlight();
     }
 
     private void RefreshBuildButton(Button button, TMP_Text label, TowerDefinition def, string baseName)
@@ -124,5 +132,24 @@ public class HUDController : MonoBehaviour
             else
                 actionInfoText.text = selectedTower.GetUpgradeSummaryText();
         }
+    }
+
+    private void RefreshBuildButtonHighlight()
+    {
+        if (buildManager == null) return;
+
+        SetBuildButtonHighlight(buildBalancedButton, buildManager.IsBuildMode && buildManager.SelectedIndex == 0);
+        SetBuildButtonHighlight(buildBurstButton, buildManager.IsBuildMode && buildManager.SelectedIndex == 1);
+        SetBuildButtonHighlight(buildFrostButton, buildManager.IsBuildMode && buildManager.SelectedIndex == 2);
+    }
+
+    private void SetBuildButtonHighlight(Button button, bool selected)
+    {
+        if (button == null) return;
+
+        var image = button.GetComponent<Image>();
+        if (image == null) return;
+
+        image.color = selected ? selectedBuildButtonColor : normalBuildButtonColor;
     }
 }

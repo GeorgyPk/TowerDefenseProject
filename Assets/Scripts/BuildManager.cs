@@ -21,6 +21,8 @@ public class BuildManager : MonoBehaviour
     private GameObject ghost;
     private int ghostIndex = -1;
     public bool buildMode = false;
+    public bool IsBuildMode => buildMode;
+    public int SelectedIndex => selectedIndex;
 
     private void Awake()
     {
@@ -199,7 +201,20 @@ public class BuildManager : MonoBehaviour
         DestroyGhost();
     }
 
-    public void SelectTower0() { selectedIndex = 0; buildMode = true; DestroyGhost(); }
-    public void SelectTower1() { selectedIndex = 1; buildMode = true; DestroyGhost(); }
-    public void SelectTower2() { selectedIndex = 2; buildMode = true; DestroyGhost(); }
+    private void SelectTowerInternal(int index)
+    {
+        if (buildMode && selectedIndex == index)
+        {
+            DisableBuildMode();
+            return;
+        }
+
+        selectedIndex = Mathf.Clamp(index, 0, towers.Length - 1);
+        buildMode = true;
+        DestroyGhost();
+    }
+
+    public void SelectTower0() => SelectTowerInternal(0);
+    public void SelectTower1() => SelectTowerInternal(1);
+    public void SelectTower2() => SelectTowerInternal(2);
 }

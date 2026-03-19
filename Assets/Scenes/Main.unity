@@ -3130,6 +3130,9 @@ MonoBehaviour:
   burstDefinition: {fileID: 11400000, guid: d6f1708d01e0e5348a152f14fe7ab047, type: 2}
   frostDefinition: {fileID: 11400000, guid: 44d472b6892f50745ab1ff23263179a2, type: 2}
   selectionManager: {fileID: 1376386539}
+  normalBuildButtonColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedBuildButtonColor: {r: 0.75, g: 1, b: 0.75, a: 1}
+  buildManager: {fileID: 1495900063}
 --- !u!114 &622435889
 MonoBehaviour:
   m_ObjectHideFlags: 0
