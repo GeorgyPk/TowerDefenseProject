@@ -20,7 +20,7 @@ public class BuildManager : MonoBehaviour
     private Camera cam;
     private GameObject ghost;
     private int ghostIndex = -1;
-    public bool buildMode = true;
+    public bool buildMode = false;
 
     private void Awake()
     {
@@ -102,7 +102,10 @@ public class BuildManager : MonoBehaviour
                     inst.definition = def;
                     inst.level = 1;
                     inst.ApplyStats();
+
                 }
+
+                DisableBuildMode();
             }
         }
     }
@@ -147,7 +150,6 @@ public class BuildManager : MonoBehaviour
         var indicator = ghost.GetComponentInChildren<RangeIndicator>(true);
         if (indicator != null)
         {
-            indicator.yOffset = 0.1f;
             indicator.SetRadius(def.range);
         }
     }

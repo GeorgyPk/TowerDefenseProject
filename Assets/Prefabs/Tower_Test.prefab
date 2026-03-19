@@ -305,7 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RangeIndicator
   radius: 8
   segments: 64
-  yOffset: 0.1
+  yOffset: 0.25
 --- !u!114 &-2494581254767982229
 MonoBehaviour:
   m_ObjectHideFlags: 0
