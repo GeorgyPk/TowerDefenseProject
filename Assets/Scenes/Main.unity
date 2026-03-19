@@ -2341,7 +2341,7 @@ GameObject:
   - component: {fileID: 527074597}
   - component: {fileID: 527074596}
   - component: {fileID: 527074595}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7257,12 +7257,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d6f1708d01e0e5348a152f14fe7ab047, type: 2}
   - {fileID: 11400000, guid: 44d472b6892f50745ab1ff23263179a2, type: 2}
   selectedIndex: 0
+  placementSurfaceMask:
+    serializedVersion: 2
+    m_Bits: 520
   buildZoneMask:
     serializedVersion: 2
     m_Bits: 8
   blockedMask:
     serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 768
   useGridSnap: 0
   gridSize: 1
   placeHeight: 0
