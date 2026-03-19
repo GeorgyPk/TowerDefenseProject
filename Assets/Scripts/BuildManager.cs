@@ -8,6 +8,7 @@ public class BuildManager : MonoBehaviour
     public int selectedIndex = 0;
 
     [Header("Layers")]
+    public LayerMask placementSurfaceMask; // BuildZone + NoBuild + Ground
     public LayerMask buildZoneMask; // BuildZone only
     public LayerMask blockedMask; // NoBuild + Tower
 
@@ -61,7 +62,7 @@ public class BuildManager : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(mousePos);
 
         // Only allow placement on BuildZone surfaces
-        if (!Physics.Raycast(ray, out RaycastHit hit, 500f, buildZoneMask))
+        if (!Physics.Raycast(ray, out RaycastHit hit, 500f, placementSurfaceMask))
         {
             if (ghost != null) ghost.SetActive(false);
             return;

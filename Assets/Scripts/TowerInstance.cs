@@ -20,6 +20,11 @@ public class TowerInstance : MonoBehaviour
     {
         ApplyStats();
         totalSpent = definition != null ? definition.buildCost : 0;
+
+        // Make sure placed towers do NOT show their range by default
+        var lr = GetComponentInChildren<LineRenderer>(true);
+        if (lr != null && gameObject.layer != LayerMask.NameToLayer("Ignore Raycast"))
+            lr.enabled = false;
     }
 
     public void ApplyStats()
