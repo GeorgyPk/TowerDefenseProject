@@ -7,33 +7,65 @@ public class TowerSelectionManager : MonoBehaviour
     public LayerMask towerMask;
     public TowerInstance selected;
 
-    public void Update()
+    private void Update()
     {
         if (Mouse.current == null) return;
         if (!Mouse.current.leftButton.wasPressedThisFrame) return;
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
+
+        // Ignore clicks on UI
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
 
         Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
         if (Physics.Raycast(ray, out RaycastHit hit, 500f, towerMask))
         {
-            Select(hit.collider.GetComponentInParent<TowerInstance>());
+            TowerInstance clickedTower = hit.collider.GetComponentInParent<TowerInstance>();
+
+            if (clickedTower != null)
+            {
+                Select(clickedTower);
+                return;
+            }
         }
+
+        // Clicked somewhere else, not a tower
+        ClearSelection();
     }
 
     public void Select(TowerInstance tower)
     {
-        if (selected == tower) return;
+        if (tower == null)
+        {
+            ClearSelection();
+            return;
+        }
+
+        if (selected == tower)
+        {
+            // Same tower clicked again -> keep it selected
+            ShowSelectedRange(selected, true);
+            return;
+        }
 
         ShowSelectedRange(selected, false);
         selected = tower;
         ShowSelectedRange(selected, true);
     }
 
-    private void ShowSelectedRange(TowerInstance t, bool show)
+    public void ClearSelection()
     {
-        if (t == null) return;
-        var lr = t.GetComponentInChildren<LineRenderer>(true);
-        if (lr != null) lr.enabled = show;
+        ShowSelectedRange(selected, false);
+        selected = null;
+    }
+
+    private void ShowSelectedRange(TowerInstance tower, bool show)
+    {
+        if (tower == null) return;
+
+        var lr = tower.GetComponentInChildren<LineRenderer>(true);
+        if (lr != null)
+            lr.enabled = show;
     }
 
     public void UpgradeSelected()
@@ -45,8 +77,10 @@ public class TowerSelectionManager : MonoBehaviour
     public void SellSelected()
     {
         if (selected == null) return;
+
         int refund = selected.SellRefund();
         GameManager.Instance.AddMoney(refund);
+
         Destroy(selected.gameObject);
         selected = null;
     }
