@@ -129,8 +129,6 @@ public class BuildManager : MonoBehaviour
         // Disable gameplay scripts on the ghost so it doesn't shoot / act
         foreach (var weapon in ghost.GetComponentsInChildren<TowerWeapon>(true))
             weapon.enabled = false;
-        foreach (var shooter in ghost.GetComponentsInChildren<TowerShooter>(true))
-            shooter.enabled = false;
 
         // Disable colliders so ghost doesn't interfere
         foreach (var col in ghost.GetComponentsInChildren<Collider>(true))
