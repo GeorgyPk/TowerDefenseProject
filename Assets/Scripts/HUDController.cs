@@ -26,6 +26,9 @@ public class HUDController : MonoBehaviour
     public TMP_Text upgradeButtonText;
     public TMP_Text sellButtonText;
 
+    [Header("Action info")]
+    public TMP_Text actionInfoText;
+
     [Header("Definitions")]
     public TowerDefinition balancedDefinition;
     public TowerDefinition burstDefinition;
@@ -36,7 +39,7 @@ public class HUDController : MonoBehaviour
 
     private void Start()
     {
-        if (autoWavesToggle != null)
+        if (autoWavesToggle != null && GameManager.Instance != null)
         {
             autoWavesToggle.isOn = GameManager.Instance.AutoWaves;
             autoWavesToggle.onValueChanged.AddListener(v => GameManager.Instance.SetAutoWaves(v));
@@ -55,17 +58,14 @@ public class HUDController : MonoBehaviour
         var gm = GameManager.Instance;
         if (gm == null) return;
 
-        // Top info
         if (moneyText != null) moneyText.text = $"Money: {gm.Money}";
         if (livesText != null) livesText.text = $"Lives: {gm.Lives}";
         if (waveText != null) waveText.text = $"Wave: {gm.Wave}";
 
-        // Build buttons: text + affordability
         RefreshBuildButton(buildBalancedButton, buildBalancedButtonText, balancedDefinition, "Build Turret");
         RefreshBuildButton(buildBurstButton, buildBurstButtonText, burstDefinition, "Build Burst");
         RefreshBuildButton(buildFrostButton, buildFrostButtonText, frostDefinition, "Build Frost");
 
-        // Selected tower actions
         RefreshSelectionButtons();
     }
 
@@ -84,7 +84,6 @@ public class HUDController : MonoBehaviour
         if (selectionManager != null)
             selectedTower = selectionManager.selected;
 
-        // No tower selected -> both disabled
         if (selectedTower == null)
         {
             if (sellButton != null) sellButton.interactable = false;
@@ -92,18 +91,19 @@ public class HUDController : MonoBehaviour
 
             if (sellButtonText != null) sellButtonText.text = "Sell";
             if (upgradeButtonText != null) upgradeButtonText.text = "Upgrade";
+
+            if (actionInfoText != null)
+                actionInfoText.text = "Select a tower to see upgrade info.";
+
             return;
         }
 
-        // Sell button
         int refund = selectedTower.SellRefund();
         if (sellButton != null) sellButton.interactable = true;
         if (sellButtonText != null) sellButtonText.text = $"Sell (${refund})";
 
-        // Upgrade button
         bool canUpgrade = selectedTower.CanUpgrade;
         int upgradeCost = selectedTower.NextUpgradeCost();
-
         bool canAffordUpgrade = GameManager.Instance != null && GameManager.Instance.Money >= upgradeCost;
 
         if (upgradeButton != null)
@@ -115,6 +115,14 @@ public class HUDController : MonoBehaviour
                 upgradeButtonText.text = "Upgrade (Max)";
             else
                 upgradeButtonText.text = $"Upgrade (${upgradeCost})";
+        }
+
+        if (actionInfoText != null)
+        {
+            if (!canUpgrade)
+                actionInfoText.text = "Tower is at max level.";
+            else
+                actionInfoText.text = selectedTower.GetUpgradeSummaryText();
         }
     }
 }

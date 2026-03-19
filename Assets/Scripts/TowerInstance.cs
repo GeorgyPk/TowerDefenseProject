@@ -95,21 +95,80 @@ public class TowerInstance : MonoBehaviour
         return Mathf.RoundToInt(totalSpent * definition.sellRefundRate);
     }
 
-    /* public string UpgradeDescription()
+    private struct PreviewStats
     {
-        if (definition == null || !CanUpgrade) return "Max Level";
+        public float damage;
+        public float range;
+        public float fireRate;
+        public float projectileSpeed;
+        public float slowPercent;
+    }
 
-        float nextDamage = damagePreview();
-        float nextRange = rangePreview();
-        float nextFireRate = fireRatePreview();
-        float nextSlow = slowPreview();
+    private PreviewStats GetStatsForLevel(int previewLevel)
+    {
+        PreviewStats stats = new PreviewStats();
 
-        string text = $"Upgrade (${NextUpgradeCost()})\n";
-        text += $"+DMG +RNG +SPD";
+        if (definition == null)
+            return stats;
+
+        float dmg = definition.damage;
+        float rng = definition.range;
+        float fr = definition.fireRate;
+        float ps = definition.projectileSpeed;
+        float slowPct = definition.slowPercent;
+
+        if (previewLevel >= 2)
+        {
+            dmg *= definition.l2_damageMult;
+            rng *= definition.l2_rangeMult;
+            fr *= definition.l2_fireRateMult;
+            ps *= definition.l2_projectileSpeedMult;
+            slowPct += definition.l2_slowPercentAdd;
+        }
+
+        if (previewLevel >= 3)
+        {
+            dmg *= definition.l3_damageMult;
+            rng *= definition.l3_rangeMult;
+            fr *= definition.l3_fireRateMult;
+            ps *= definition.l3_projectileSpeedMult;
+            slowPct += definition.l3_slowPercentAdd;
+        }
+
+        stats.damage = dmg;
+        stats.range = rng;
+        stats.fireRate = fr;
+        stats.projectileSpeed = ps;
+        stats.slowPercent = Mathf.Clamp01(slowPct);
+
+        return stats;
+    }
+
+    private string FormatFloat(float value)
+    {
+        return value.ToString("0.##");
+    }
+
+    public string GetUpgradeSummaryText()
+    {
+        if (definition == null) return "No tower data.";
+        if (!CanUpgrade) return "Tower is at max level.";
+
+        int nextLevel = level + 1;
+
+        PreviewStats current = GetStatsForLevel(level);
+        PreviewStats next = GetStatsForLevel(nextLevel);
+
+        string text = $"Next upgrade to L{nextLevel}:\n";
+        text += $"Damage: {FormatFloat(current.damage)} -> {FormatFloat(next.damage)}\n";
+        text += $"Range: {FormatFloat(current.range)} -> {FormatFloat(next.range)}\n";
+        text += $"Fire Rate: {FormatFloat(current.fireRate)} -> {FormatFloat(next.fireRate)}";
 
         if (definition.appliesSlow)
-            text += $" +SLOW";
+        {
+            text += $"\nSlow: {FormatFloat(current.slowPercent * 100f)}% -> {FormatFloat(next.slowPercent * 100f)}%";
+        }
 
         return text;
-    } */
+    }
 }
