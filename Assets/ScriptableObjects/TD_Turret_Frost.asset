@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f1340ba93c299441adc9026b1cc30b9, type: 3}
+  m_Name: TD_Turret_Frost
+  m_EditorClassIdentifier: Assembly-CSharp::TowerDefinition
+  displayName: Tower
+  towerPrefab: {fileID: 1419012677578046898, guid: 4ed11fea09256fb4f9c98aba97b2c2d2, type: 3}
+  buildCost: 30
+  upgradeCostL2: 50
+  upgradeCostL3: 80
+  sellRefundRate: 0.5
+  range: 7
+  damage: 1.5
+  fireRate: 2
+  projectileSpeed: 30
+  maxTargetsPerShot: 1
+  projectilesPerTarget: 1
+  appliesSlow: 1
+  slowPercent: 0.35
+  slowDuration: 1.5
+  l2_damageMult: 1.35
+  l2_rangeMult: 1.1
+  l2_fireRateMult: 1.15
+  l2_projectileSpeedMult: 1.1
+  l2_slowPercentAdd: 0.1
+  l3_damageMult: 1.75
+  l3_rangeMult: 1.2
+  l3_fireRateMult: 1.3
+  l3_projectileSpeedMult: 1.2
+  l3_slowPercentAdd: 0.2

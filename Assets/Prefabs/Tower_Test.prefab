@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 7219048751804267149}
   - component: {fileID: 2820804806680272738}
   - component: {fileID: 6909175105896143364}
-  - component: {fileID: 2563008859037945445}
-  - component: {fileID: -1422596530316980972}
   - component: {fileID: 4991248050712930876}
   - component: {fileID: -6959610754707882598}
+  - component: {fileID: -2494581254767982229}
+  - component: {fileID: 909090207758118863}
   m_Layer: 8
   m_Name: Tower_Test
   m_TagString: Untagged
@@ -119,43 +119,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &2563008859037945445
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1419012677578046898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05a7033642d3e23478d841f098d3c46b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TowerShooter
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 128
-  range: 8
-  turretHead: {fileID: 0}
-  damage: 5
-  fireRate: 2
-  tracer: {fileID: 0}
-  tracerTime: 0.05
-  firePoint: {fileID: 4027528255219447774}
-  projectilePrefab: {fileID: 2301106906892351090, guid: 8266fe157a4306f4e98d55a12c880419, type: 3}
-  projectileSpeed: 30
---- !u!114 &-1422596530316980972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1419012677578046898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24d8b47c2c33a424a9c0a58bd9b66f2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TowerCost
-  cost: 25
 --- !u!120 &4991248050712930876
 LineRenderer:
   serializedVersion: 3
@@ -343,6 +306,46 @@ MonoBehaviour:
   radius: 8
   segments: 64
   yOffset: 0.1
+--- !u!114 &-2494581254767982229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419012677578046898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3b2f0f0b8514f47aadd10297b22ee1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerWeapon
+  firePoint: {fileID: 4027528255219447774}
+  projectilePrefab: {fileID: 2301106906892351090, guid: 8266fe157a4306f4e98d55a12c880419, type: 3}
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 128
+  range: 8
+  damage: 5
+  fireRate: 2
+  projectileSpeed: 20
+  maxTargetsPerShot: 1
+  projectilesPerTarget: 1
+  appliesSlow: 0
+  slowPercent: 0.35
+  slowDuration: 1.5
+--- !u!114 &909090207758118863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419012677578046898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eacf27c3a970f349b7c315e77031d0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TowerInstance
+  definition: {fileID: 0}
+  level: 1
 --- !u!1 &2946432961729021178
 GameObject:
   m_ObjectHideFlags: 0

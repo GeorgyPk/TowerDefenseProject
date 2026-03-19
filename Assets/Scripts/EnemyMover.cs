@@ -4,9 +4,8 @@ using UnityEngine;
 public class EnemyMover : MonoBehaviour
 {
     [Header("Movement")]
-
-    public float speed = 4f;
-    public float rotateSpeed = 720f; // degrees per second
+    public float speed = 4f; // base speed (can be modified by wave/enemy type)
+    public float rotateSpeed = 720f;
     public float waypointReachDistance = 0.2f;
 
     [Header("Path")]
@@ -16,10 +15,12 @@ public class EnemyMover : MonoBehaviour
     private Rigidbody rb;
     private int currentIndex;
 
+    // This is the base speed AFTER wave/type modifiers, before slow debuffs
+    private float baseSpeed;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        // For a simple waypoint mover, keep physics stable:
         rb.isKinematic = true;
         rb.useGravity = false;
     }
@@ -27,10 +28,11 @@ public class EnemyMover : MonoBehaviour
     private void OnEnable()
     {
         currentIndex = startWaypointIndex;
+
+        baseSpeed = speed;
+
         if (path != null && path.Count > 0)
-        {
             transform.position = path.Get(currentIndex).position;
-        }
     }
 
     private void Update()
@@ -48,26 +50,32 @@ public class EnemyMover : MonoBehaviour
             currentIndex++;
             if (currentIndex >= path.Count)
             {
-                // Reached end - EndZone will destroy the enemy
-                enabled = false;
+                enabled = false; // EndZone will destroy enemy
             }
             return;
         }
 
         Vector3 dir = toTarget.normalized;
 
-        // Move
-        transform.position += dir * (speed * Time.deltaTime);
+        // Slow logic
+        float slowFactor = 1f;
+        var status = GetComponent<EnemyStatus>();
+        if (status != null) slowFactor = status.SlowFactor;
 
-        // Rotate toward movement direction
+        float currentSpeed = baseSpeed * slowFactor;
+
+        transform.position += dir * (currentSpeed * Time.deltaTime);
+
         if (dir.sqrMagnitude > 0.001f)
         {
             Quaternion targetRot = Quaternion.LookRotation(dir, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(
-                transform.rotation,
-                targetRot,
-                rotateSpeed * Time.deltaTime
-            );
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotateSpeed * Time.deltaTime);
         }
+    }
+
+    public void SetBaseSpeed(float newBaseSpeed)
+    {
+        baseSpeed = newBaseSpeed;
+        speed = newBaseSpeed;
     }
 }

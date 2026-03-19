@@ -8,11 +8,25 @@ public class ProjectileHoming : MonoBehaviour
 
     private Transform target;
     private float damage;
+    private bool appliesSlow;
+    private float slowPercent;
+    private float slowDuration;
+
 
     public void Init(Transform targetTransform, float damageAmount)
     {
+        Init(targetTransform, damageAmount, false, 0f, 0f);
+    }
+    
+    public void Init(Transform targetTransform, float damageAmount, bool slow, float slowPct, float slowDur)
+    {
         target = targetTransform;
         damage = damageAmount;
+
+        appliesSlow = slow;
+        slowPercent = slowPct;
+        slowDuration = slowDur;
+
         Destroy(gameObject, lifeTime);
     }
 
@@ -52,10 +66,14 @@ public class ProjectileHoming : MonoBehaviour
         if (target != null)
         {
             var hp = target.GetComponent<EnemyHealth>();
-            if (hp != null)
-                hp.TakeDamage(damage);
-        }
+            if (hp != null) hp.TakeDamage(damage);
 
+            if (appliesSlow)
+            {
+                var status = target.GetComponent<EnemyStatus>();
+                if (status != null) status.ApplySlow(slowPercent, slowDuration);
+            }
+        }
         Destroy(gameObject);
     }
 
