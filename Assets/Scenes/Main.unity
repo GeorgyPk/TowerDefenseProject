@@ -636,14 +636,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533e3fefe4ea4d84a82f4d8c4c850a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
-  enemyPrefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
   spawnPoint: {fileID: 743079373}
   path: {fileID: 1354685232}
   timeBetweenSpawns: 0.6
-  baseEnemyCount: 8
-  enemyCountPerWave: 3
-  hpMultiplierPerWave: 1.15
-  speedMultiplierPerWave: 1.05
+  waves:
+  - enemies:
+    - prefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
+      count: 5
+  - enemies:
+    - prefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
+      count: 8
+  - enemies:
+    - prefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
+      count: 6
+    - prefab: {fileID: 4652245200650963815, guid: 0c354eb399720644d9541939de00fba4, type: 3}
+      count: 6
+  - enemies:
+    - prefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
+      count: 5
+    - prefab: {fileID: 4652245200650963815, guid: 6debb30eab0b81043919b731528fde92, type: 3}
+      count: 2
+  - enemies:
+    - prefab: {fileID: 4652245200650963815, guid: 0c354eb399720644d9541939de00fba4, type: 3}
+      count: 12
+    - prefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
+      count: 6
+  - enemies:
+    - prefab: {fileID: 4652245200650963815, guid: 6debb30eab0b81043919b731528fde92, type: 3}
+      count: 4
+    - prefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
+      count: 6
+  - enemies:
+    - prefab: {fileID: 4652245200650963815, guid: 0c354eb399720644d9541939de00fba4, type: 3}
+      count: 15
+    - prefab: {fileID: 4652245200650963815, guid: 6debb30eab0b81043919b731528fde92, type: 3}
+      count: 3
+  - enemies:
+    - prefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
+      count: 10
+    - prefab: {fileID: 4652245200650963815, guid: 6debb30eab0b81043919b731528fde92, type: 3}
+      count: 4
+    - prefab: {fileID: 4652245200650963815, guid: 0c354eb399720644d9541939de00fba4, type: 3}
+      count: 10
+  - enemies:
+    - prefab: {fileID: 4652245200650963815, guid: 6debb30eab0b81043919b731528fde92, type: 3}
+      count: 6
+    - prefab: {fileID: 4652245200650963815, guid: 0c354eb399720644d9541939de00fba4, type: 3}
+      count: 14
+  - enemies:
+    - prefab: {fileID: 4652245200650963815, guid: f2d74a4f69bffdc489a8ce995048e6a2, type: 3}
+      count: 1
+    - prefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
+      count: 8
+    - prefab: {fileID: 4652245200650963815, guid: 0c354eb399720644d9541939de00fba4, type: 3}
+      count: 10
 --- !u!4 &181985444
 Transform:
   m_ObjectHideFlags: 0
@@ -912,7 +958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a8dd7bdc8ecaa4e8d39133c332b8bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  startingMoney: 150
+  startingMoney: 100
   startingLives: 20
   money: 0
   lives: 0

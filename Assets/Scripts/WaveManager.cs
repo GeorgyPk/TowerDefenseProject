@@ -1,21 +1,29 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
+    [System.Serializable]
+    public class EnemyEntry
+    {
+        public GameObject prefab;
+        public int count = 1;
+    }
+
+    [System.Serializable]
+    public class WaveDefinition
+    {
+        public List<EnemyEntry> enemies = new List<EnemyEntry>();
+    }
+
     [Header("References")]
-    public GameObject enemyPrefab;
     public Transform spawnPoint;
     public WaypointPath path;
 
     [Header("Wave Settings")]
     public float timeBetweenSpawns = 0.6f;
-
-    [Header("Difficulty")]
-    public int baseEnemyCount = 8;
-    public int enemyCountPerWave = 3;
-    public float hpMultiplierPerWave = 1.15f;
-    public float speedMultiplierPerWave = 1.05f;
+    public List<WaveDefinition> waves = new List<WaveDefinition>();
 
     private bool waveRunning;
     private int aliveEnemies;
@@ -24,16 +32,20 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
-        // Auto-start next wave if enabled and no wave is running
         if (!waveRunning && GameManager.Instance != null && GameManager.Instance.AutoWaves)
         {
-            StartNextWave();
+            if (GameManager.Instance.Wave < waves.Count)
+                StartNextWave();
         }
     }
 
     public void StartNextWave()
     {
         if (waveRunning) return;
+        if (waves == null || waves.Count == 0) return;
+        if (GameManager.Instance == null) return;
+        if (GameManager.Instance.Wave >= waves.Count) return;
+
         StartCoroutine(RunWave());
     }
 
@@ -41,50 +53,41 @@ public class WaveManager : MonoBehaviour
     {
         waveRunning = true;
 
-        // Increment wave counter
         GameManager.Instance.NextWave();
-        int wave = GameManager.Instance.Wave;
+        int waveIndex = GameManager.Instance.Wave - 1;
 
-        int count = baseEnemyCount + (wave - 1) * enemyCountPerWave;
+        WaveDefinition wave = waves[waveIndex];
 
-        for (int i = 0; i < count; i++)
+        foreach (var entry in wave.enemies)
         {
-            SpawnEnemy(wave);
-            yield return new WaitForSeconds(timeBetweenSpawns);
+            if (entry.prefab == null || entry.count <= 0) continue;
+
+            for (int i = 0; i < entry.count; i++)
+            {
+                SpawnEnemy(entry.prefab);
+                yield return new WaitForSeconds(timeBetweenSpawns);
+            }
         }
 
-        // Wait until all spawned enemies are dead or reached end
         while (aliveEnemies > 0)
             yield return null;
 
         waveRunning = false;
     }
 
-    private void SpawnEnemy(int wave)
+    private void SpawnEnemy(GameObject enemyPrefab)
     {
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
 
-        // Hook up path
         var mover = enemy.GetComponent<EnemyMover>();
         if (mover != null)
         {
             mover.path = path;
             mover.startWaypointIndex = 0;
-            mover.speed *= Mathf.Pow(speedMultiplierPerWave, wave - 1);
         }
 
-        // Scale HP
-        var hp = enemy.GetComponent<EnemyHealth>();
-        if (hp != null)
-        {
-            hp.maxHp *= Mathf.Pow(hpMultiplierPerWave, wave - 1);
-            hp.currentHp = hp.maxHp;
-        }
-
-        // Track alive enemies
         aliveEnemies++;
 
-        // Register callbacks
         var tracker = enemy.AddComponent<WaveEnemyTracker>();
         tracker.manager = this;
     }

@@ -21,7 +21,7 @@ MonoBehaviour:
   range: 5.5
   damage: 3
   fireRate: 0.9
-  projectileSpeed: 30
+  projectileSpeed: 26
   maxTargetsPerShot: 4
   projectilesPerTarget: 1
   appliesSlow: 0
@@ -30,10 +30,10 @@ MonoBehaviour:
   l2_damageMult: 1.35
   l2_rangeMult: 1.1
   l2_fireRateMult: 1.15
-  l2_projectileSpeedMult: 1.1
+  l2_projectileSpeedMult: 1.05
   l2_slowPercentAdd: 0.1
   l3_damageMult: 1.75
   l3_rangeMult: 1.2
-  l3_fireRateMult: 1.3
-  l3_projectileSpeedMult: 1.2
+  l3_fireRateMult: 1.25
+  l3_projectileSpeedMult: 1.1
   l3_slowPercentAdd: 0.2
