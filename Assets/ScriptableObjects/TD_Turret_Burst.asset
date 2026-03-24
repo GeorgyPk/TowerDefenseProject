@@ -27,13 +27,13 @@ MonoBehaviour:
   appliesSlow: 0
   slowPercent: 0.35
   slowDuration: 1.5
-  l2_damageMult: 1.35
-  l2_rangeMult: 1.1
+  l2_damageMult: 1.2
+  l2_rangeMult: 1.05
   l2_fireRateMult: 1.15
   l2_projectileSpeedMult: 1.05
   l2_slowPercentAdd: 0.1
-  l3_damageMult: 1.75
-  l3_rangeMult: 1.2
+  l3_damageMult: 1.45
+  l3_rangeMult: 1.1
   l3_fireRateMult: 1.25
   l3_projectileSpeedMult: 1.1
   l3_slowPercentAdd: 0.2

@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61788deb9ba639e479872106d85235d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMover
-  speed: 8
+  speed: 15
   rotateSpeed: 720
   waypointReachDistance: 0.2
   path: {fileID: 0}
@@ -175,9 +175,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038ab6c733648334ead9f3debfe7f2d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHp: 7
+  maxHp: 9
   currentHp: 0
-  reward: 2
+  reward: 1
 --- !u!114 &-6929191943205161367
 MonoBehaviour:
   m_ObjectHideFlags: 0
