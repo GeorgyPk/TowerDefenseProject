@@ -32,6 +32,8 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance == null || !GameManager.Instance.IsPlaying)
+            return;
         if (!waveRunning && GameManager.Instance != null && GameManager.Instance.AutoWaves)
         {
             if (GameManager.Instance.Wave < waves.Count)
@@ -41,6 +43,7 @@ public class WaveManager : MonoBehaviour
 
     public void StartNextWave()
     {
+        if (!GameManager.Instance.IsPlaying) return;
         if (waveRunning) return;
         if (waves == null || waves.Count == 0) return;
         if (GameManager.Instance == null) return;
@@ -73,6 +76,12 @@ public class WaveManager : MonoBehaviour
             yield return null;
 
         waveRunning = false;
+
+        if (GameManager.Instance != null &&
+            GameManager.Instance.Wave >= waves.Count)
+        {
+            GameManager.Instance.WinGame();
+        }
     }
 
     private void SpawnEnemy(GameObject enemyPrefab)

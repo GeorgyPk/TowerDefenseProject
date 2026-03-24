@@ -28,6 +28,9 @@ public class TowerWeapon : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance == null || !GameManager.Instance.IsPlaying)
+            return;
+
         cd -= Time.deltaTime;
         if (cd > 0f) return;
 
@@ -44,7 +47,7 @@ public class TowerWeapon : MonoBehaviour
         if (hits.Length == 0) return System.Array.Empty<Transform>();
 
         // Pick up to N closest enemies
-        System.Array.Sort(hits, (a,b) =>
+        System.Array.Sort(hits, (a, b) =>
             (a.transform.position - transform.position).sqrMagnitude.CompareTo(
             (b.transform.position - transform.position).sqrMagnitude));
 
