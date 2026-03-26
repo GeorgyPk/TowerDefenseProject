@@ -3798,15 +3798,15 @@ MonoBehaviour:
     - prefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
       count: 8
   - enemies:
+    - prefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
+      count: 8
     - prefab: {fileID: 4652245200650963815, guid: 0c354eb399720644d9541939de00fba4, type: 3}
       count: 16
-    - prefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
-      count: 8
   - enemies:
-    - prefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
-      count: 8
     - prefab: {fileID: 4652245200650963815, guid: 6debb30eab0b81043919b731528fde92, type: 3}
       count: 5
+    - prefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
+      count: 8
   - enemies:
     - prefab: {fileID: 4652245200650963815, guid: 6debb30eab0b81043919b731528fde92, type: 3}
       count: 4
@@ -3829,10 +3829,10 @@ MonoBehaviour:
       count: 1
     - prefab: {fileID: 4652245200650963815, guid: 6debb30eab0b81043919b731528fde92, type: 3}
       count: 4
-    - prefab: {fileID: 4652245200650963815, guid: 0c354eb399720644d9541939de00fba4, type: 3}
-      count: 16
     - prefab: {fileID: 4652245200650963815, guid: 26c948e95c400f943974f5735f6e54b6, type: 3}
       count: 12
+    - prefab: {fileID: 4652245200650963815, guid: 0c354eb399720644d9541939de00fba4, type: 3}
+      count: 16
 --- !u!4 &181985444
 Transform:
   m_ObjectHideFlags: 0
