@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TD_Turret_Balanced
   m_EditorClassIdentifier: Assembly-CSharp::TowerDefinition
   displayName: Tower
-  towerPrefab: {fileID: 1419012677578046898, guid: 4ed11fea09256fb4f9c98aba97b2c2d2, type: 3}
+  towerPrefab: {fileID: 9045536492275193940, guid: a8978cf368281204a992ab58218f4e11, type: 3}
   buildCost: 25
   upgradeCostL2: 40
   upgradeCostL3: 70

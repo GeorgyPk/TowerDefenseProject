@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TD_Turret_Frost
   m_EditorClassIdentifier: Assembly-CSharp::TowerDefinition
   displayName: Tower
-  towerPrefab: {fileID: 1419012677578046898, guid: 4ed11fea09256fb4f9c98aba97b2c2d2, type: 3}
+  towerPrefab: {fileID: 9045536492275193940, guid: fd271936e9807e845bdbf9aecc668abc, type: 3}
   buildCost: 30
   upgradeCostL2: 50
   upgradeCostL3: 80
