@@ -24,12 +24,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int wave;
     [SerializeField] private bool autoWaves;
     [SerializeField] private GameState state = GameState.MainMenu;
+    [SerializeField] private int enemiesKilled;
+    [SerializeField] private int bestEnemiesKilled;
+
 
     public int Money => money;
     public int Lives => lives;
     public int Wave => wave;
     public bool AutoWaves => autoWaves;
     public GameState State => state;
+
+    public int EnemiesKilled => enemiesKilled;
+    public int BestEnemiesKilled => bestEnemiesKilled;
 
     public bool IsPlaying => state == GameState.Playing;
     public bool IsPaused => state == GameState.Paused;
@@ -48,6 +54,8 @@ public class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
+        bestEnemiesKilled = PlayerPrefs.GetInt("BestEnemiesKilled", 0);
+
         ResetRun();
         state = GameState.MainMenu;
         Time.timeScale = 0f;
@@ -59,6 +67,7 @@ public class GameManager : MonoBehaviour
         lives = startingLives;
         wave = 0;
         autoWaves = false;
+        enemiesKilled = 0;
     }
 
     public void StartGame()
@@ -159,5 +168,17 @@ public class GameManager : MonoBehaviour
     public void SetAutoWaves(bool enabled)
     {
         autoWaves = enabled;
+    }
+
+    public void RegisterEnemyKill()
+    {
+        enemiesKilled++;
+
+        if (enemiesKilled > bestEnemiesKilled)
+        {
+            bestEnemiesKilled = enemiesKilled;
+            PlayerPrefs.SetInt("BestEnemiesKilled", bestEnemiesKilled);
+            PlayerPrefs.Save();
+        }
     }
 }

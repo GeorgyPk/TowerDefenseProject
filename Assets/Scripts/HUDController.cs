@@ -8,6 +8,8 @@ public class HUDController : MonoBehaviour
     public TMP_Text moneyText;
     public TMP_Text livesText;
     public TMP_Text waveText;
+    public TMP_Text killsText;
+    public TMP_Text bestKillsText;
     public Toggle autoWavesToggle;
 
     [Header("Build buttons")]
@@ -68,6 +70,8 @@ public class HUDController : MonoBehaviour
         if (moneyText != null) moneyText.text = $"Money: {gm.Money}";
         if (livesText != null) livesText.text = $"Lives: {gm.Lives}";
         if (waveText != null) waveText.text = $"Wave: {gm.Wave}";
+        if (killsText != null) killsText.text = $"Kills: {gm.EnemiesKilled}";
+        if (bestKillsText != null) bestKillsText.text = $"Best: {gm.BestEnemiesKilled}";
 
         RefreshBuildButton(buildBalancedButton, buildBalancedButtonText, balancedDefinition, "Build Turret");
         RefreshBuildButton(buildBurstButton, buildBurstButtonText, burstDefinition, "Build Burst");

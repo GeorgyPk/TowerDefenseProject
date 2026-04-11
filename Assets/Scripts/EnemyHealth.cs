@@ -15,6 +15,8 @@ public class EnemyHealth : MonoBehaviour
     private float lastHitSoundTime = -999f;
     public float hitSoundCooldown = 0.1f;
 
+    private bool isDead = false;
+
     private void Awake()
     {
         currentHp = maxHp;
@@ -26,11 +28,13 @@ public class EnemyHealth : MonoBehaviour
     private void OnEnable()
     {
         currentHp = maxHp;
+        isDead = false;
     }
 
     public void TakeDamage(float amount)
     {
         if (amount <= 0f) return;
+        if (isDead) return;
 
         currentHp -= amount;
 
@@ -53,8 +57,14 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
+        if (isDead) return;
+        isDead = true;
+
         if (GameManager.Instance != null)
+        {
             GameManager.Instance.AddMoney(reward);
+            GameManager.Instance.RegisterEnemyKill();
+        }
 
         var tracker = GetComponent<WaveEnemyTracker>();
         if (tracker != null && tracker.manager != null)
